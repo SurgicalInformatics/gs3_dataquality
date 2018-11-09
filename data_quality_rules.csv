@@ -1,0 +1,71 @@
+﻿rule_id,rule_description,rule_logic
+1,Obese patients must have an ASA grade of 2 or more,[bmi]>3 AND [bmi]!=9 AND [asa] = 1
+2,Patients with diabetes mellitus must have an ASA grade of 2 or more,[diabetes] > 0 AND [diabetes] != 9 AND [asa] = 1
+3,TNM stage and essential TNM stage do not match,"[stage_m] = 2 AND [stage_ess_tnm_breast] <> """" AND [stage_ess_tnm_breast] != 1"
+4,TNM stage and essential TNM stage do not match,[stage_m] = 1 AND [stage_ess_tnm_breast] = 1
+5,TNM stage and essential TNM stage do not match,"[stage_n_breast] <> """" AND [stage_n_breast] = 0 AND ([stage_ess_tnm_breast] = 2 OR [stage_ess_tnm_breast] = 3)"
+6,TNM stage and essential TNM stage do not match,"[stage_n_breast] = 1 AND [stage_m] = 1 AND [stage_ess_tnm_breast] <> """" AND [stage_ess_tnm_breast] != 3"
+7,TNM stage and essential TNM stage do not match,"([stage_n_breast] = 2 OR [stage_n_breast] = 3) AND [stage_m] = 1 AND [stage_ess_tnm_breast] <> """" AND [stage_ess_tnm_breast] != 2"
+8,TNM stage and essential TNM stage do not match,"[stage_m] = 1 AND [stage_n_breast] = 0 AND [stage_t_breast] = 1 AND [stage_ess_tnm_breast] <> """" AND [stage_ess_tnm_breast] != 6"
+9,TNM stage and essential TNM stage do not match,"[stage_m] = 1 AND [stage_n_breast] <> """" AND [stage_n_breast] = 0 AND ([stage_t_breast] = 2 OR [stage_t_breast] = 3) AND [stage_ess_tnm_breast] <> """" AND [stage_ess_tnm_breast] != 5"
+10,TNM stage and essential TNM stage do not match,"[stage_m] = 1 AND [stage_n_breast] = 0 AND [stage_t_breast] = 5 AND [stage_ess_tnm_breast] <> """" AND [stage_ess_tnm_breast] != 0"
+11,TNM stage and essential TNM stage do not match,"[stage_m] = 1 AND [stage_n_breast] = 0 AND [stage_t_breast] = 4 AND [stage_ess_tnm_breast] <> """" AND [stage_ess_tnm_breast] != 4"
+12,TNM stage and essential TNM stage do not match,"[stage_m] = 2 AND [stage_ess_tnm_gast] <> """" AND [stage_ess_tnm_gast] != 1"
+13,TNM stage and essential TNM stage do not match,[stage_m] = 1 AND [stage_ess_tnm_gast] = 1
+14,TNM stage and essential TNM stage do not match,[stage_n_gastric] = 0 AND [stage_ess_tnm_gast] = 2
+15,TNM stage and essential TNM stage do not match,"([stage_n_gastric] = 1 OR [stage_n_gastric] = 2 OR [stage_n_gastric] = 3) AND [stage_m] = 1 AND [stage_ess_tnm_gast] <> """" AND [stage_ess_tnm_gast] != 2"
+16,TNM stage and essential TNM stage do not match,[stage_m] = 1 AND [stage_n_gastric] = 0 AND ([stage_t_gast_colo] = 1 OR [stage_t_gast_colo] = 2 OR [stage_t_gast_colo] = 5) AND [stage_ess_tnm_gast] = 3
+17,TNM stage and essential TNM stage do not match,[stage_m] = 1 AND [stage_n_gastric] = 0 AND ([stage_t_gast_colo] = 3 OR [stage_t_gast_colo] = 4) AND [stage_ess_tnm_gast] = 4
+18,TNM stage and essential TNM stage do not match,"[stage_m] = 2 AND [stage_ess_tnm_colo] <> """" AND [stage_ess_tnm_colo] != 1"
+19,TNM stage and essential TNM stage do not match,[stage_m] = 1 AND [stage_ess_tnm_colo] = 1
+20,TNM stage and essential TNM stage do not match,"[stage_n_colon] <> """" AND [stage_n_colon] = 0 AND [stage_ess_tnm_colo] = 2"
+21,TNM stage and essential TNM stage do not match,"([stage_n_colon] = 1 OR [stage_n_colon] = 2) AND [stage_m] = 1 AND [stage_ess_tnm_colo] <> """" AND [stage_ess_tnm_colo] != 2"
+22,TNM stage and essential TNM stage do not match,[stage_m] = 1 AND [stage_n_colon] = 0 AND ([stage_t_gast_colo] = 1 OR [stage_t_gast_colo] = 2 OR [stage_t_gast_colo] = 5) AND [stage_ess_tnm_colo] = 3
+23,TNM stage and essential TNM stage do not match,[stage_m] = 1 AND [stage_n_colon] = 0 AND ([stage_t_gast_colo] = 3 OR [stage_t_gast_colo] = 4) AND [stage_ess_tnm_colo] = 4
+24,"If Endoscopy is ""Not available"" then Endoscopic Biopsy must be ""No, not available""","[cancer_type] = 2 AND [scope_gast_colo] = 0 AND [biopsy_scope_gast_colo] <> """" AND [biopsy_scope_gast_colo] != 0"
+25,"If Colonoscopy is ""Not available"" then Colonoscopic Biopsy must be ""No, not available""","[cancer_type] = 3 AND [scope_gast_colo] = 0 AND [biopsy_scope_gast_colo] <> """" AND [biopsy_scope_gast_colo] != 0"
+26,"If Endoscopy / Colonoscopy is ""No, not indicated"" then Endoscopic / Colonoscopic Biopsy must be one of the following:",[scope_gast_colo] = 1 AND [biopsy_scope_gast_colo] = 3
+,"1. ""No, not indicated"", ",
+,"2. ""No, indicated and facilities available, but patient not able to pay""",
+,"3. ""No, not available""",
+27,"If Endoscopy / Colonoscopy is ""No, indicated and facilities available, but patient not able to pay"" then Endoscopic / Colonoscopic Biopsy must be one of the following: 1. ""No, not indicated"", 2. ""No, indicated and facilities available, but patient not able to pay"" 3. ""No, not available""",[scope_gast_colo] = 2 AND [biopsy_scope_gast_colo] = 3
+28,"If Endoscopic / Colonoscopic Biopsy is recorded as ""Yes"" then Endoscopy / Colonoscopy must be set to ""Yes""","[scope_gast_colo] <> """" AND [scope_gast_colo] != 3 AND [biopsy_scope_gast_colo] = 3"
+29,"If Endoscopy is ""No, not available"" then Endoscopic ultrasound (EUS) / Transanal ultrasound must be ""No, not available""",[cancer_type] = 2 AND [scope_gast_colo] = 0 AND [eus_gast_colo] != 0
+30,"If Endoscopy is ""No, not indicated"" then Endoscopic ultrasound (EUS) / Transanal ultrasound must be one of the following: 1. ""No, not indicated"", 2. ""No, indicated and facilities available, but patient not able to pay"" 3. ""No, not available""",[cancer_type] = 2 AND [scope_gast_colo] = 1 AND [eus_gast_colo] = 3
+31,"If Endoscopy ""No, indicated and facilities available, but patient not able to pay"" then Endoscopic ultrasound (EUS) / Transanal ultrasound must be one of the following: 1. ""No, not indicated"", 2. ""No, indicated and facilities available, but patient not able to pay"" 3. ""No, not available""",[cancer_type] = 2 AND [scope_gast_colo] = 2 AND [eus_gast_colo] = 3
+32,"If Endoscopic ultrasound (EUS) / Transanal ultrasound is recorded as ""Yes"" then Endoscopy / Colonoscopy must be set to ""Yes""","[cancer_type] = 2 AND [scope_gast_colo] <> """" AND [scope_gast_colo] != 3 AND [eus_gast_colo] = 3"
+33,Time of operation must be after time of admission,"[date_time_admit] <> """" AND [knife2skin] <> """" AND ([date_time_admit] > [knife2skin])"
+34,"Patients with ""Laparotomy with no other procedure"" or ""Diagnostic laparoscopy with no other procedure"" should not have an anastomosis. Please select a different operation or select ""Not performed"" for anastomosis.","(([primaryop_gast] <> """" AND [primaryop_gast] <=2 AND [cancer_type] = 2) OR ([primaryop_colo] <> """" AND [primaryop_colo] <=2 AND [cancer_type] = 3)) AND [anastomosis] <> """" AND [anastomosis] != 0"
+35,"Patients with ""Formation of ileostomy only"" should not have an anastomosis. If the patient has a new anastomosis please select a different operation or select ""Not performed"" for anastomosis.","[primaryop_colo] = 3 AND [anastomosis] <> """" AND [anastomosis] != 0"
+36,"Patients with ""Resection with closure of rectal stump (Hartmann's)"" should not have a new anastomosis. Please select a different operation or select ""Not performed"" for anastomosis.","[primaryop_colo] = 17 AND [anastomosis] <> """" AND [anastomosis] != 0"
+37,"Patients with ""Laparotomy with no other procedure"" or ""Diagnostic laparoscopy with no other procedure"" should not have a new stoma. Please select a different operation or select ""Not performed"" for stoma.","(([primaryop_gast] <> """" AND [primaryop_gast] <=2 AND [cancer_type] = 2) OR ([primaryop_colo] <> """" AND [primaryop_colo] <=2 AND [cancer_type] = 3)) AND [stoma] <> """" AND [stoma] != 0"
+38,"Patients with ""Formation of ileostomy only"" must have an ileostomy recorded under stoma","[primaryop_colo] = 3 AND [stoma] <> """" AND ([stoma] >2 OR [stoma] = 0)"
+39,"Patients with ""Formation of any colonic stoma"" must have a colostomy recorded under stoma",[primaryop_colo] = 12 AND ([stoma] = 9 OR [stoma] <= 2)
+40,"Patients with ""Resection with closure of rectal stump (Hartmann's)"" must have a stoma. Please select the type of stoma created or select a different operation.","[primaryop_colo] = 17 AND [stoma] <> """" AND [stoma] = 0"
+41,"Patients who undergo ""Resection with anastomosis of colon to rectum"" must have an anastomosis. Please update anastomosis or select a different operation.","[primaryop_colo] = 15 AND [anastomosis] <> """" AND [anastomosis] = 0"
+42,"Patients with ""Anterior resection with anastomosis"" must be recorded as having an anastomosis. Please update anastomosis or select a different operation.","[primaryop_colo] = 16 AND [anastomosis] <> """" AND [anastomosis] = 0"
+43,Number of INVOLVED lymph nodes should not be more than TOTAL number of lymph nodes,"[path_inv_n] <> """" AND [path_total_n] <> """" AND ([path_inv_n] > [path_total_n])"
+44,"If this patient has died, the number of days in hospital after the operation cannot be more than the number of days for which they survived.","[los] <> """" AND [dateofdeath] <> """" AND ([los] > (datediff([dateofdeath], [knife2skin], ""d"", ""D-M-Y H:M"") + 1) OR [los] < (datediff([dateofdeath], [knife2skin], ""d"", ""D-M-Y H:M"") -1))"
+45,"If the patient has been in hospital for 30 or more days after the operation then please select ""Still inpatient OR readmitted"" for 30 day follow-up.","[los] <> """" AND [los] >= 30 AND [fu_method] != 1"
+46,Please update the appropriate Clavien-Dindo grade for the surgical site infection.,([ssi] = 1 AND [cd1] != 1) OR ([ssi] = 2 AND [cd2] != 1) OR ([ssi] = 3 AND [cd3] != 1 AND [cd3] != 2) OR ([ssi] = 4 AND [cd4] != 1 AND [cd4] != 2)
+47,"Please change 30-day mortality to ""Dead"" if the patient died of a surgical site infection within 30 days. Please change surgical site infection option if the patient is still alive.",[ssi] = 5 AND [mort30] != 1
+48,Please update the appropriate Clavien-Dindo grade for the intra-abdominal abscess,([abscess_gast_colo] = 1 AND [cd1] != 1) OR ([abscess_gast_colo] = 2 AND [cd2] != 1) OR ([abscess_gast_colo] = 3 AND ([cd3] != 1 AND [cd3] != 2)) OR ([abscess_gast_colo] = 4 AND ([cd4] != 1 AND [cd4] != 2))
+49,"Please change 30-day mortality to ""Dead"" if the patient died of an intra-abdominal abscess within 30 days. Please change intra-abdominal abscess option if the patient is still alive.",[abscess_gast_colo] = 5 AND [mort30] != 1
+50,Please update the appropriate Clavien-Dindo grade for the anastomotic leak,([leak] = 1 AND [cd1] != 1) OR ([leak] = 2 AND [cd2] != 1) OR ([leak] = 3 AND [cd3] != 1 AND [cd3] != 2) OR ([leak] = 4 AND [cd4] != 1 AND [cd4] != 2)
+51,"Please change 30-day mortality to ""Dead"" if the patient died of an anastomotic leak within 30 days. Please change anastomotic leak option if the patient is still alive.",[leak] = 5 AND [mort30] != 1
+52,Please update the appropriate Clavien-Dindo grade for the post-operative haemorrhage,([bleed] = 1 AND [cd1] != 1) OR ([bleed] = 2 AND [cd2] != 1) OR ([bleed] = 3 AND [cd3] != 1 AND [cd3] != 2) OR ([bleed] = 4 AND [cd4] != 1 AND [cd4] != 2)
+53,"Please change 30-day mortality to ""Dead"" if the patient died of a post-operative haemorrhage within 30 days. Please change post-operative haemorrhage option if the patient is still alive.",[bleed] = 5 AND [mort30] != 1
+54,Please update the appropriate Clavien-Dindo grade for the post-operative seroma,([seroma] = 1 AND [cd1] != 1) OR ([seroma] = 2 AND [cd2] != 1) OR ([seroma] = 3 AND [cd3] != 1 AND [cd3] != 2) OR ([seroma] = 4 AND [cd4] != 1 AND [cd4] != 2)
+55,"Please change 30-day mortality to ""Dead"" if the patient died of a post-operative seroma within 30 days. Please change post-operative seroma option if the patient is still alive.",[seroma] = 5 AND [mort30] != 1
+56,"If 30-day follow-up was achieved when the patient was an inpatient, the patient must have remained in hospital for 30 or more days or have been readmitted.","[fu_method] = 1 AND [los] <> """" AND [los] < 30 AND [readmission] <> """" AND [readmission] = 0 AND [mort30] <> """" AND [mort30] = 0"
+57,Date of operation is more than 2 months after date of admission. Please ignore this message if the patient was admitted more than 2 months before the operation.,"[date_time_admit] <> """" AND [knife2skin] <> """" AND (60 < (datediff([date_time_admit], [knife2skin], ""d"", ""D-M-Y H:M"")))"
+58,Patients with total excision of colon and rectum cannot have end colostomy,[primaryop_colo] = 4 AND [stoma] = 4
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
